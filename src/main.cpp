@@ -73,14 +73,16 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-#define DIGITAL_SENSOR_PORT 'C'
+#define LED_PORT 'A'
+#define BUTTON_PORT 'C'
 
 void opcontrol() {
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 	pros::Motor left_mtr(1);
 	pros::Motor right_mtr(2);
 	pros::Distance distance(3);
-	pros::ADIDigitalIn sensor (DIGITAL_SENSOR_PORT);
+	pros::ADIDigitalOut led (LED_PORT);
+	pros::ADIDigitalIn button (BUTTON_PORT);
 
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
@@ -90,22 +92,32 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 		if (distance.get() != 0) {
 			pros::lcd::clear_line(1);
 			pros::lcd::print(1, "%d", distance.get());
-
+//this whole thing is not ok
 		}
 		pros::lcd::clear_line(2);
-		pros::lcd::print(2, "%d", distance.get_confidence());
+		pros::lcd::print(1, "%d", distance.get_confidence());
+		pros::lcd::clear_line(3);
+		pros::lcd::print(1, "%d", distance.get_object_velocity());
 
+		if (button.get_value() == 0) {
+			led.set_value(0);
 
+		}
 
-			pros::lcd::clear_line(3);
-			pros::lcd::print(3, "%d", sensor.get_value());
+		if (button.get_value() == 1) {
+			led.set_value(1);
+		}
 
+		else {
+			led.set_value(0);
+
+		}
 
 		int left = master.get_analog(ANALOG_LEFT_Y);
 		int right = master.get_analog(ANALOG_RIGHT_Y);
 
 		left_mtr = left;
 		right_mtr = right;
-		pros::delay(200);
+		pros::delay(20);
 	}
 }
