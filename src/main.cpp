@@ -105,12 +105,13 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 		}
 
 		if (button.get_value() == 1) {
-			led.set_value(1)
+			led.set_value(1);
 		}
 
-		else (
-			led.set_value(0)
-		)
+		else {
+			led.set_value(0);
+
+		}
 
 		int left = master.get_analog(ANALOG_LEFT_Y);
 		int right = master.get_analog(ANALOG_RIGHT_Y);
