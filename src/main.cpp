@@ -93,6 +93,7 @@ void opcontrol() {
 		pros::lcd::print(1, "%d", distance.get_confidence());
 		pros::lcd::clear_line(3);
 		pros::lcd::print(1, "%d", distance.get_object_velocity());
+		vex::led::led(triport::port A)
 		int left = master.get_analog(ANALOG_LEFT_Y);
 		int right = master.get_analog(ANALOG_RIGHT_Y);
 
