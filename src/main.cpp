@@ -92,7 +92,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 		if (distance.get() != 0) {
 			pros::lcd::clear_line(1);
 			pros::lcd::print(1, "%d", distance.get());
-
+//this whole thing is fucked
 		}
 		pros::lcd::clear_line(2);
 		pros::lcd::print(1, "%d", distance.get_confidence());
