@@ -90,14 +90,14 @@ void opcontrol() {
 
 		}
 		pros::lcd::clear_line(2);
-		pros::lcd::print(1, "%d", distance.get_confidence());
+		pros::lcd::print(2, "%d", distance.get_confidence());
 		pros::lcd::clear_line(3);
-		pros::lcd::print(1, "%d", distance.get_object_velocity());
+		pros::lcd::print(3, "%d", distance.get_object_velocity());
 		int left = master.get_analog(ANALOG_LEFT_Y);
 		int right = master.get_analog(ANALOG_RIGHT_Y);
 
 		left_mtr = left;
 		right_mtr = right;
-		pros::delay(20);
+		pros::delay(2000);
 	}
 }
