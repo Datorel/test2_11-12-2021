@@ -73,11 +73,14 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+#define DIGITAL_SENSOR_PORT 'A'
+
 void opcontrol() {
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
+pros::Controller master(pros::E_CONTROLLER_MASTER);
 	pros::Motor left_mtr(1);
 	pros::Motor right_mtr(2);
 	pros::Distance distance(3);
+	pros::ADIDigitalIn sensor (DIGITAL_SENSOR_PORT);
 
 	while (true) {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
@@ -93,7 +96,11 @@ void opcontrol() {
 		pros::lcd::print(1, "%d", distance.get_confidence());
 		pros::lcd::clear_line(3);
 		pros::lcd::print(1, "%d", distance.get_object_velocity());
-		vex::led::led(triport::port A)
+
+		while (!button.get_value()) {
+			pros::lcd::print(1, "The button is not pressed")
+		}
+
 		int left = master.get_analog(ANALOG_LEFT_Y);
 		int right = master.get_analog(ANALOG_RIGHT_Y);
 
