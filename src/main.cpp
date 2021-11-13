@@ -83,6 +83,16 @@ void opcontrol() {
 		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
 		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+
+		if (distance.get() != 0) {
+			pros::lcd::clear_line(1);
+			pros::lcd::print(1, "%d", distance.get());
+
+		}
+		pros::lcd::clear_line(2);
+		pros::lcd::print(1, "%d", distance.get_confidence());
+		pros::lcd::clear_line(3);
+		pros::lcd::print(1, "%d", distance.get_object_velocity());
 		int left = master.get_analog(ANALOG_LEFT_Y);
 		int right = master.get_analog(ANALOG_RIGHT_Y);
 
